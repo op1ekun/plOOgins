@@ -1,4 +1,4 @@
 plOOgins
 ========
 
-OO for your jQuery plugins
+OOP for your jQuery plugins
