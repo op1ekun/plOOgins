@@ -8,25 +8,24 @@ function superMethod(superM, currentMethod){
     
     return function(){
         
-        var tmp = this[superIndex];
+        // var tmp = this[superIndex];
         
         this[superIndex] = superM;
         
         var result = currentMethod.apply(this, arguments);
         
-        if (typeof tmp == 'undefined') {
-            delete(this[superIndex]);
-        } else {
-            this[superIndex] = tmp;
-        }
+        // if (typeof tmp === 'undefined') {
+            // delete(this[superIndex]);
+        // } else {
+            // this[superIndex] = tmp;
+        // }
         
         return result;
     };
 }
 
 function extend(Child, Parent){
-    
-    if (typeof Child != 'function' || typeof Parent != 'function') {
+    if (typeof Child !== 'function' || typeof Parent !== 'function') {
         throw('Class::extend - Could not extend class');
     }
     
@@ -37,10 +36,10 @@ function extend(Child, Parent){
     var prototype = new Temp();
     
     prototype.constructor = Child;
-    
+
     for (var key in Child.prototype) {
         
-        if (typeof prototype[key] == 'function' && typeof Child.prototype[key] == 'function') {
+        if (typeof prototype[key] === 'function' && typeof Child.prototype[key] === 'function') {
             prototype[key] = superMethod(prototype[key], Child.prototype[key]);
         } else {
             prototype[key] = Child.prototype[key];
@@ -51,4 +50,3 @@ function extend(Child, Parent){
     
     return Child;
 }
-

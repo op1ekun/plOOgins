@@ -24,8 +24,6 @@
             (function ($) {
                 function TestPlugin(opts) {
                     
-                    console.log('args:', arguments, 'this:', this);
-                    
                     function prvTest() {
                         this.selector.html('prvTest returns jQuery object');
                         return this.selector;
@@ -42,6 +40,8 @@
                 }
                 
                 TestPlugin.prototype.protoTest = function () {
+                    console.log('parent protoTest');
+                    
                     this.selector.html('protoTest returns jQuery object' + this.selector.attr('data-id'));
                     return this.selector;
                 }
@@ -50,15 +50,12 @@
                     TestPlugin  : TestPlugin
                 });
                 
-                
                 function AnotherPlugin(opts) {
-                    console.log('opts', opts);
                     TestPlugin.call(this, opts);
                 }
                 
                 AnotherPlugin.prototype.protoTest = function () {
-                    TestPlugin.call(this);
-                    
+                    this._super();                    
                     this.selector.css("color", "red");
                     return this.selector;    
                 }
