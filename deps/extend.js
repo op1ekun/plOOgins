@@ -1,24 +1,21 @@
 /**
  * Class like inheritance
- * @author pk5166
+ * @author przemyslaw koscielniak
  */
 var superIndex = '_super';
 
 function superMethod(superM, currentMethod){
     
-    return function(){
+    return function () {
+        var tmp             = this[superIndex];
+        this[superIndex]    = superM;
+        var result          = currentMethod.apply(this, arguments);
         
-        // var tmp = this[superIndex];
-        
-        this[superIndex] = superM;
-        
-        var result = currentMethod.apply(this, arguments);
-        
-        // if (typeof tmp === 'undefined') {
-            // delete(this[superIndex]);
-        // } else {
-            // this[superIndex] = tmp;
-        // }
+        if (typeof tmp === 'undefined') {
+            delete(this[superIndex]);
+        } else {
+            this[superIndex] = tmp;
+        }
         
         return result;
     };
@@ -29,16 +26,12 @@ function extend(Child, Parent){
         throw('Class::extend - Could not extend class');
     }
     
-    function Temp(){}
-    
+    function Temp() {}
     Temp.prototype = Parent.prototype;
-    
     var prototype = new Temp();
-    
     prototype.constructor = Child;
 
     for (var key in Child.prototype) {
-        
         if (typeof prototype[key] === 'function' && typeof Child.prototype[key] === 'function') {
             prototype[key] = superMethod(prototype[key], Child.prototype[key]);
         } else {
