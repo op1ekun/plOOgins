@@ -31,8 +31,6 @@
 					function prvTest() {
 						
 						this.selector.html('prvTest returns jQuery object');
-						
-						return this.selector;
 					}
 
 					function publicTest() {
@@ -40,8 +38,6 @@
 						console.log('Test plugin publicTest method arguments', arguments);
 						
 						this.selector.html('publicTest returns jQuery object' + this.selector.attr('data-id'));
-						console.log('this', this);
-						return this;
 					}
 
 					$.extend(this, {
@@ -54,8 +50,6 @@
 					console.log('parent protoTest', arguments);
 
 					this.selector.html('protoTest returns jQuery object' + this.selector.attr('data-id'));
-					
-					return this.selector;
 				}
 
 				$.extend(true, window, {
@@ -73,8 +67,8 @@
 
 					this._super();
 					this.selector.css("color", "red");
-
-					return this.selector;
+					
+					return this.string;
 				}
 
 				extend(AnotherPlugin, TestPlugin);
@@ -87,9 +81,13 @@
 
 			$('document').ready(function() {
 
-				$('.one').AnotherPlugin('one', 'two', 'three').
-					publicTest('four', 'five', 'six').
-					protoTest('seven', 'eight', 'nine');
+				// selector chain for collection (suppress output)
+				console.log($('.plugin').AnotherPlugin('one', 'two', 'three').
+					publicTest('four', 'five', 'six').size());
+				
+				// output test for single (no automatic jQuery chaining - we must manually return fe. this.selector)
+				console.log($('.one').AnotherPlugin('one', 'two', 'three').
+					protoTest('seven', 'eight', 'nine'));
 
 			});
 
