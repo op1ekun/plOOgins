@@ -27,9 +27,9 @@ function extend(Child, Parent){
     }
     
     function Temp() {}
-    Temp.prototype = Parent.prototype;
-    var prototype = new Temp();
-    prototype.constructor = Child;
+    Temp.prototype          = Parent.prototype;
+    var prototype           = new Temp();
+    prototype.constructor   = Child;
 
     for (var key in Child.prototype) {
         if (typeof prototype[key] === 'function' && typeof Child.prototype[key] === 'function') {
