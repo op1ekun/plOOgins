@@ -83,7 +83,7 @@
         plug.prototypeMethod();
         
         $('.plugin').each(function (index, elem) {
-            equal(elem.innerHTML, 
+            equal(elem.innerHTML,
                 'prototypeMethod returns jQuery object with id ' + $(elem).attr('data-id'), 
                 'content correct for id ' + $(elem).attr('data-id'));
         });
@@ -91,7 +91,7 @@
         $('.plugin').each(function (index, elem) {
             equal($(elem).css('color'),
                 'rgb(255, 0, 0)',
-                'color correct for id ' + $(elem).attr('data-id'));    
+                'color correct for id ' + $(elem).attr('data-id'));
         });
         
     });
