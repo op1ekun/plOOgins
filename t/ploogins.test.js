@@ -6,6 +6,13 @@
             this.ploogins    = window.ploogins;
                 
             function TestObject() {
+                var args = arguments;
+                
+                // just a test method to check correctness of passed arguments
+                this.getArgs = function () {
+                    return arguments.length ? arguments : args;
+                }
+                
                 // public method that can be inherited by calling TestObject constructor
                 this.publicMethod = function () {
                     this.selector.html('publicMethod returns jQuery object with id ' + this.selector.attr('data-id'));
@@ -20,7 +27,7 @@
             }
             
             function AnotherTestObject() {
-                TestObject.call(this);
+                TestObject.apply(this, arguments);
             }
             
             AnotherTestObject.prototype.prototypeMethod = function () {
@@ -93,7 +100,18 @@
                 'rgb(255, 0, 0)',
                 'color correct for id ' + $(elem).attr('data-id'));
         });
+    });
+    
+    test('pass arguments to plugin constructor', function () {
+        var plug = $('.one').AnotherTestObject('one', 'two', 'three');
         
+        deepEqual(plug.getArgs(), { '0' : 'one', '1' : 'two', '2' : 'three' }, 'arguments passed correctly');    
+    });
+    
+    test('pass arguments to plugin method', function () {
+        var plug = $('.two').AnotherTestObject();
+        
+        deepEqual(plug.getArgs('one', 'two'), { '0' : 'one', '1' : 'two' }, 'arguments passed correctly');    
     });
     
 }(jQuery));

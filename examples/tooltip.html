@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>index</title>
+		<meta name="description" content="" />
+		<meta name="author" content="op1ekun" />
+
+		<script src="../deps/jquery-1.8.0.min.js"></script>
+		<script src="../deps/extend.js"></script>
+		<script src="../lib/ploogins.js"></script>
+
+		<script>
+			(function ($) {
+			    
+			    /**
+			     * Abstract class for tooltip just to show
+			     * how plOOgins work with inheritance
+			     */
+			    function AbstractTooltip() {
+			        // keep a reference to dom for later use
+			        var node = $('<div class="tooltippopup"></div>')
+                        // tooltip will be appended to selected element
+                        .appendTo(this.selector)
+                        .hide();
+                        
+                    this.selector.on('mouseover', function () {
+                        node.show();    
+                    });
+                    
+                    this.selector.on('mouseout', function () {
+                        node.hide();    
+                    });
+			        
+			        this.getNode = function() {
+			            return node;
+			        }
+			    }
+			    
+			    /**
+			     * simplified jQuery like method to get/set content
+			     * @param {String}   html string - optional
+			     */
+			    AbstractTooltip.prototype.content = function (content) {
+			        var node = this.getNode();
+			        if (content) {
+                        return node.html(content);
+			        }
+			        
+                    return node.html();
+			    }
+			    
+                function SpecificTooltip() {
+                    AbstractTooltip.apply(this, arguments);
+                    this.getNode().addClass('specifictooltip');
+                }
+
+                // inheritance
+				extend(SpecificTooltip, AbstractTooltip);
+
+                // register class as a plugin
+				var ploogins = window.ploogins;
+				// only register
+				ploogins.register(SpecificTooltip, 'YourPluginName');
+
+    			$('document').ready(function() {
+    
+                    // instantiate plugin and attach tooltip to the selected node
+                    // a single selector means a single plugin instance
+                    // everything ON DEMAND
+                    var tooltip = $('.tooltip.specific')
+                        .YourPluginName();
+                        
+                    tooltip.content('<strong>Hello!</strong>');
+                    
+                    // only 2 new instances will be created 
+                    // (last tooltip element already has one)
+                    var tooltips = $('.tooltip')
+                        .YourPluginName();
+                    
+                    // we have just overwritten tooltip message for the last element   
+                    tooltips.content('<strong>Hello again!</strong>');
+    			});
+    			
+			}(jQuery));
+
+		</script>
+	</head>
+
+	<body>
+		<div class="tooltip" data-id="123">tooltip</div>
+		<div class="tooltip" data-id="234">tooltip</div>
+		<div class="tooltip specific" data-id="345">tooltip specific</div>
+	</body>
+</html>
