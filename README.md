@@ -29,6 +29,8 @@ https://github.com/krzyzak00 - for borrowing his inheritance mechanism and helpi
 
 https://github.com/Sahadar - for providing good ideas
 
- 
+### License
+
+Licensed under the [MIT](https://github.com/op1ekun/plOOgins/blob/master/LICENSE.md) license.
 
     
