@@ -5,14 +5,13 @@ OOP for your jQuery plugins.
 ### Features
 
 - allows You to write true OOP code to use as your jQuery plugins
-- stores plugin instance in jQuery.data for every select element, once instantiated a plugin will remain there for further use
-- unlike original jQuery plugin methods work for all selected elements
+- stores a plugin instance in jQuery.data for every selected element, once instantiated the plugin will remain there for further use
+- unlike original jQuery, plugin methods work for all selected elements (not only for the first one)
 - but You decide if You want to provide chaining or not
 
 ### HOWTO
 
-
-See also examples (https://github.com/op1ekun/plOOgins/tree/master/examples) and tests (https://github.com/op1ekun/plOOgins/tree/master/t) for detailed use cases.
+See also [examples](https://github.com/op1ekun/plOOgins/tree/master/examples) and [tests](https://github.com/op1ekun/plOOgins/tree/master/t) for detailed use cases.
 
 #### Common use case (with chaining)
 
