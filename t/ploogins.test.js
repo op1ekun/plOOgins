@@ -32,8 +32,8 @@
                 // by default remove all events attached to selected elements
                 this.selector.off();
 
-                // according to .removeData documentation null is set 
-                // to avoid removing ALL THE DATA if name wasn't passed
+                // according to .removeData documentation I have decided to set null 
+                // to avoid removing ALL THE DATA if name wasn't passed to .removeData
                 this.selector.data(this.name, null);
             }
 
