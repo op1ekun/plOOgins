@@ -1,6 +1,6 @@
 /**
  * Class like inheritance
- * @author przemyslaw koscielniak
+ * @author https://github.com/krzyzak00
  */
 var superIndex = '_super';
 
